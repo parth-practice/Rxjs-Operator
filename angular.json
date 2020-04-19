@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Rxjs-Operator"
+    }
+  },
+  "defaultProject": "Rxjs-Operator",
+  "cli": {
+    "analytics": false
+  }
 }
