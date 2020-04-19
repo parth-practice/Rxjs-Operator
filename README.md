@@ -25,3 +25,22 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## List Of Operator
+    /* 
+      Operator: buffer
+      add value into buffer
+      emit buffered values as array whenever
+      inner observable emits
+    */
+
+    `// emit the buffer after 100ms
+    interval(100)
+      .pipe(
+        buffer(interval(1000)),
+        take(3)  // just limit the life of the source observable
+      ).subscribe(data => {
+        console.log("This is Buffer Data:::", data);
+      });`
+
+
