@@ -34,13 +34,25 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       inner observable emits
     */
 
-    `// emit the buffer after 100ms
+    // emit the buffer after 100ms
     interval(100)
       .pipe(
         buffer(interval(1000)),
         take(3)  // just limit the life of the source observable
       ).subscribe(data => {
         console.log("This is Buffer Data:::", data);
-      });`
+      });
+
+    /* 
+      Operator: bufferCount
+      add value into buffer untill full
+      then emit the buffer
+      Second parameter of bufferCount is optional
+    */
+
+    of(1,2,3,4,5,6)
+      .pipe(bufferCount(2,1))
+      .subscribe(sequence => console.log("This is buffer Sequence::", sequence));
+  }
 
 

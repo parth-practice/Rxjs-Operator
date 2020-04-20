@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { interval } from 'rxjs';
+import { interval, of } from 'rxjs';
 
-import { buffer, take } from 'rxjs/operators';
+import { bufferCount } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,19 +14,14 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {   
     
     /* 
-      Operator: buffer
-      add value into buffer
-      emit buffered values as array whenever
-      inner observable emits
+      Operator: bufferCount
+      add value into buffer untill full
+      then emit the buffer
+      Second parameter of bufferCount is optional
     */
 
-    // emit the buffer after 100ms
-    interval(100)
-      .pipe(
-        buffer(interval(1000)),
-        take(3)  // just limit the life of the source observable
-      ).subscribe(data => {
-        console.log("This is Buffer Data:::", data);
-      });
+    of(1,2,3,4,5,6)
+      .pipe(bufferCount(2,1))
+      .subscribe(sequence => console.log("This is buffer Sequence::", sequence));
   }
 }
