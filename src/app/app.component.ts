@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { interval, of, timer } from 'rxjs';
+import { timer } from 'rxjs';
 
-import { skipWhile } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,38 +11,32 @@ import { skipWhile } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  public ngOnInit(): void {   
-    
+  public ngOnInit(): void {
+
     /* 
-      Operator: skip
-      it skips values from source observable and subscriber never seen that value
+      Operator: take
+       it is opposite of skip, the first n values and complete observable
 
-      Operator: skipLast
-      This won't work if your observable is infinite
-      ignore the last n values
+      Operator: takeLast
+       it doesn't work with infinite sets of observable
+       emits last n values and complete observable
+      
+      Operator: takeUntil
+       take the value until the notifier sends signal
 
-      Operator: skipUntil
-      skip the values untill the notifier sends the signal
-
-      Operator: skipWhile
-      skip the value while the condition held true
-      once the condition becomes false, emits the coming values as normal
+      Operator: takeWhile
+       take the values while the condition held true
+       once the condition becomes false, emit complete event
     */
 
-    // of(1,2,3,4,5,6)
-    //   .pipe(skipLast(1))
-    //   .subscribe(sequence => console.log("This is buffer Sequence::", sequence));
+    const source = timer(0, 1000);
 
-    // timer(0, 1000)
-    //   .pipe(
-    //       take(6),
-    //       skipUntil(timer(3000)) // once this starts sending signal observer gets value
-    //   )
-    //   .subscribe(value => console.log("Getting from Observable:::", value));
-
-      of(1,2,3,1,2,3,4,5,6)
-          // ^ condition false here
-      .pipe(skipWhile(value => value < 3))
-      .subscribe(sequence => console.log("This is buffer Sequence::", sequence));
+    source.pipe(
+      take(5)
+    )
+    .subscribe(value => console.log("values::", value),
+      null,
+      () => console.log("Complete")
+    );
   }
 }

@@ -38,6 +38,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       then emit the buffer
       Second parameter of bufferCount is optional
 
+      // skip
       Operator: skip
       it skips values from source observable and subscriber never seen that value
 
@@ -52,5 +53,17 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       skip the value while the condition held true
       once the condition becomes false, emits the coming values as normal
 
+     // take
+      Operator: take
+       it is opposite of skip, the first n values and complete observable
 
+      Operator: takeLast
+       it doesn't work with infinite sets of observable
+       emits last n values and complete observable
+      
+      Operator: takeUntil
+       take the value until the notifier sends signal
 
+      Operator: takeWhile
+       take the values while the condition held true
+       once the condition becomes false, emit complete event
