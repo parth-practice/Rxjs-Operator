@@ -27,32 +27,30 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## List Of Operator
-    /* 
-      Operator: buffer
+
+      Operator: buffer  or Operator: window (emits values as an observable)
       add value into buffer
       emit buffered values as array whenever
       inner observable emits
-    */
 
-    // emit the buffer after 100ms
-    interval(100)
-      .pipe(
-        buffer(interval(1000)),
-        take(3)  // just limit the life of the source observable
-      ).subscribe(data => {
-        console.log("This is Buffer Data:::", data);
-      });
-
-    /* 
       Operator: bufferCount
       add value into buffer untill full
       then emit the buffer
       Second parameter of bufferCount is optional
-    */
 
-    of(1,2,3,4,5,6)
-      .pipe(bufferCount(2,1))
-      .subscribe(sequence => console.log("This is buffer Sequence::", sequence));
-  }
+      Operator: skip
+      it skips values from source observable and subscriber never seen that value
+
+      Operator: skipLast
+      This won't work if your observable is infinite
+      ignore the last n values
+
+      Operator: skipUntil
+      skip the values untill the notifier sends the signal
+
+      Operator: skipWhile
+      skip the value while the condition held true
+      once the condition becomes false, emits the coming values as normal
+
 
 
