@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { of } from 'rxjs';
 
-import { findIndex } from 'rxjs/operators';
+import { single } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +14,15 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /*
-       Operator: find
-       emit the first value that matches a given condition
-
-      Operator: findIndex
-       emit the index of the first value that matches a given condition
+       Operator: single
+       check that a single value matches the specific condition
+       If single value matches from the observable, emit that value
+       If no value matches from the observable, emit undefined
+       If more than one value match from the observable, emit an error
     */
 
     of(1,2,3,4,5,6,10)
-      .pipe(findIndex(value => value > 2 && value % 2 === 0))
+      .pipe(single(value => value > 6))
       .subscribe(value => console.log("Find element from observable:::", value));    
 
    console.log("_____________________________________________");

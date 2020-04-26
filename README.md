@@ -116,3 +116,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
       Operator: findIndex
        emit the index of the first value that matches a given condition
+
+    // single
+      Operator: single
+       check that a single value matches the specific condition
+       If single value matches from the observable, emit that value
+       If no value matches from the observable, emit undefined
+       If more than one value match from the observable, emit an error
