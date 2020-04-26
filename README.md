@@ -78,3 +78,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       Operator: distinctUntilKeyChanged
         pick the value of the given field
         do not emit value until change
+
+    // filter
+      Operator: filter
+       emits only values matching a given condition
+
+    // sample
+      Operator: sample
+       emit the most recent value when the notifier sends signal
+       parameter is an observable
