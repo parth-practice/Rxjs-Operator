@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { of, interval, Observable } from 'rxjs';
+import { of } from 'rxjs';
 
-import { take, sample } from 'rxjs/operators';
+import { first, last } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,25 +14,28 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /* 
-      Operator: sample
-       emit the most recent value when the notifier sends signal
-       parameter is an observable
+      Operator: first
+       emits only first from observable
+
+       Operator: last
+       emits only last from observable
+       Don't work on infinite observable --> it returns nothing as there is no last value from infinite observable
+       Error out on empty observable
     */
 
-    const source = interval(100);
-    const notifier = new Observable(observer => {
-      setTimeout(() => observer.next(), 150);
-      setTimeout(() => observer.next(), 300)
-      setTimeout(() => observer.complete(), 850)
-    });
-
-    source
-    .pipe(
-        sample(notifier),
-        take(3))
-    .subscribe(data => console.log("Data from observable:::", data));
-    
+    of(1,3,5,7,9,10)
+      .pipe(first())
+      .subscribe(first => console.log("First from observable:::", first));    
 
    console.log("_____________________________________________");
+
+   of(1,3,5,7,9,10)
+   .pipe(first(value => value%2 === 0))
+   .subscribe(first => console.log("First even number from observable:::", first));
+
+   of(1,3,5,6,7,9,10)
+   .pipe(last(value => value%2 === 0))
+   .subscribe(last => console.log("Last even number from observable:::", last));
+
   }
 }

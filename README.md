@@ -87,3 +87,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       Operator: sample
        emit the most recent value when the notifier sends signal
        parameter is an observable
+
+    // first and last
+      Operator: first
+       emits only first from observable
+
+      Operator: last
+       emits only last from observable
+       Don't work on infinite observable --> it returns nothing as there is no last value from infinite observable
+       Error out on empty observable
