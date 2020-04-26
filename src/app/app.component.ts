@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { of } from 'rxjs';
 
-import { max } from 'rxjs/operators';
+import { elementAt } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,24 +14,15 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /* 
-      Operator: min - this won't work for infinite observable
-       find the min value within a stream
-       the defination of 'minimum' can be determine through a comparator function
-
-       Operator: max - this won't work for infinite observable
-       find the max value within a stream
-       the defination of 'maximum' can be determine through a comparator function
+      Operator: elementAt - this won't work to specify get element from end of the stream b y providing negative value 
+       emit only the (n+1)-th emitted value
     */
 
     of(1,3,5,1,3,10)
-      .pipe(max())
-      .subscribe(value => console.log("Max from observable:::", value));    
+      .pipe(elementAt(2))
+      .subscribe(value => console.log("2nd element from observable:::", value));    
 
    console.log("_____________________________________________");
-
-   of(1,3,5,20,-3,10)
-   .pipe(max((x, y) => x > y ? 1 : -1))
-   .subscribe(value => console.log("Max even number from observable:::", value));
 
   }
 }

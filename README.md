@@ -105,3 +105,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       Operator: max - this won't work for infinite observable
        find the max value within a stream
        the defination of 'maximum' can be determine through a comparator function
+
+    // elementAt
+      Operator: elementAt - this won't work to specify get element from end of the stream b y providing negative value 
+       emit only the (n+1)-th emitted value
