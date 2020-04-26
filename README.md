@@ -109,3 +109,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     // elementAt
       Operator: elementAt - this won't work to specify get element from end of the stream b y providing negative value 
        emit only the (n+1)-th emitted value
+
+    // find and findIndex
+      Operator: find
+       emit the first value that matches a given condition
+
+      Operator: findIndex
+       emit the index of the first value that matches a given condition
