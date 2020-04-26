@@ -67,3 +67,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       Operator: takeWhile
        take the values while the condition held true
        once the condition becomes false, emit complete event
+
+      // distinct
+      Operator: distinct
+       emits unique values across whole source
+
+      Operator: distinctUntilChange
+       do not emit value until change
+
+      Operator: distinctUntilKeyChanged
+        pick the value of the given field
+        do not emit value until change

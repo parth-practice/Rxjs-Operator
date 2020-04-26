@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { timer } from 'rxjs';
+import { of } from 'rxjs';
 
-import { take } from 'rxjs/operators';
+import { distinctUntilKeyChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,29 +14,33 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /* 
-      Operator: take
-       it is opposite of skip, the first n values and complete observable
+      Operator: distinct
+       emits unique values across whole source
 
-      Operator: takeLast
-       it doesn't work with infinite sets of observable
-       emits last n values and complete observable
-      
-      Operator: takeUntil
-       take the value until the notifier sends signal
+      Operator: distinctUntilChange
+       do not emit value until change
 
-      Operator: takeWhile
-       take the values while the condition held true
-       once the condition becomes false, emit complete event
+      Operator: distinctUntilKeyChanged
+        pick the value of the given field
+        do not emit value until change
     */
 
-    const source = timer(0, 1000);
+    const post = [
+      {post: 1, likes: 2, author: { id: 10 }},
+      {post: 2, likes: 5, author: { id: 11 }},
+      {post: 3, likes: 5, author: { id: 12 }},
+      {post: 4, likes: 6, author: { id: 12 }}
+    ];
+  
+    console.log("POSTS", post);
+    of(...post)
+    .pipe(distinctUntilKeyChanged('likes'))
+    .subscribe(data => console.log(data.author, data.likes, data.author.id));
 
-    source.pipe(
-      take(5)
-    )
-    .subscribe(value => console.log("values::", value),
-      null,
-      () => console.log("Complete")
-    );
+   console.log("_____________________________________________");
+
+   of(...post)
+   .pipe(distinctUntilKeyChanged('author', (a1,a2) => a1.id === a2.id))
+   .subscribe(data => console.log(data.author, data.likes, data.author.id));
   }
 }
