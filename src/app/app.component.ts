@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { of } from 'rxjs';
 
-import { first, last } from 'rxjs/operators';
+import { max } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,28 +14,24 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /* 
-      Operator: first
-       emits only first from observable
+      Operator: min - this won't work for infinite observable
+       find the min value within a stream
+       the defination of 'minimum' can be determine through a comparator function
 
-       Operator: last
-       emits only last from observable
-       Don't work on infinite observable --> it returns nothing as there is no last value from infinite observable
-       Error out on empty observable
+       Operator: max - this won't work for infinite observable
+       find the max value within a stream
+       the defination of 'maximum' can be determine through a comparator function
     */
 
-    of(1,3,5,7,9,10)
-      .pipe(first())
-      .subscribe(first => console.log("First from observable:::", first));    
+    of(1,3,5,1,3,10)
+      .pipe(max())
+      .subscribe(value => console.log("Max from observable:::", value));    
 
    console.log("_____________________________________________");
 
-   of(1,3,5,7,9,10)
-   .pipe(first(value => value%2 === 0))
-   .subscribe(first => console.log("First even number from observable:::", first));
-
-   of(1,3,5,6,7,9,10)
-   .pipe(last(value => value%2 === 0))
-   .subscribe(last => console.log("Last even number from observable:::", last));
+   of(1,3,5,20,-3,10)
+   .pipe(max((x, y) => x > y ? 1 : -1))
+   .subscribe(value => console.log("Max even number from observable:::", value));
 
   }
 }
