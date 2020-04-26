@@ -133,6 +133,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
     ** Grouping Observables **
 
+    // combineAll and concatAll
       Operator: combineAll
        combine latest value from multiple observables
        once all sources have emitted
+
+      Operator: concatAll
+       concate value from multiple observables
