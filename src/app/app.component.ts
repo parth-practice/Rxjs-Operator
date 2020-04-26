@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { of } from 'rxjs';
+import { interval, of } from 'rxjs';
 
-import { single } from 'rxjs/operators';
+import { take, single, combineAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +14,18 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /*
-       Operator: single
-       check that a single value matches the specific condition
-       If single value matches from the observable, emit that value
-       If no value matches from the observable, emit undefined
-       If more than one value match from the observable, emit an error
+       Operator: combineAll
+       combine latest value from multiple observables
+       once all sources have emitted
     */
 
-    of(1,2,3,4,5,6,10)
-      .pipe(single(value => value > 6))
-      .subscribe(value => console.log("Find element from observable:::", value));    
+    const source1 = of('a','b','c');
+    const source2 = interval(2000).pipe(take(3));
+    const source3 = of(1,2,3,4,5);
+
+    of(source1, source2, source3)
+      .pipe(combineAll())
+      .subscribe(([v1, v2, v3]) => console.log("Combined Elements", v1 + ' ' + v2 + ' ' + v3));
 
    console.log("_____________________________________________");
 

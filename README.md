@@ -28,6 +28,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## List Of Operator
 
+      **Buffering**
+
+      // buffer and bufferCount
       Operator: buffer  or Operator: window (emits values as an observable)
       add value into buffer
       emit buffered values as array whenever
@@ -37,6 +40,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       add value into buffer untill full
       then emit the buffer
       Second parameter of bufferCount is optional
+
+      ** Filtering to multiple results**
 
       // skip
       Operator: skip
@@ -88,6 +93,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
        emit the most recent value when the notifier sends signal
        parameter is an observable
 
+    ** Filtering to one Result **
+
     // first and last
       Operator: first
        emits only first from observable
@@ -123,3 +130,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
        If single value matches from the observable, emit that value
        If no value matches from the observable, emit undefined
        If more than one value match from the observable, emit an error
+
+    ** Grouping Observables **
+
+      Operator: combineAll
+       combine latest value from multiple observables
+       once all sources have emitted
