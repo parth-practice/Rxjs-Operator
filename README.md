@@ -140,3 +140,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
       Operator: concatAll
        concate value from multiple observables
+
+      Operator: mergeAll (FLATTENING)
+       merge a list of observable
+       mergeAll(1) will produce result same as concateAll, it will emit observable in a order

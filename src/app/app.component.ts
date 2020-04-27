@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { of } from 'rxjs';
+import { timer, of } from 'rxjs';
 
-import { concatAll } from 'rxjs/operators';
+import { take, delay, mergeAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,16 +14,22 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /*
-       Operator: concatAll
-       concate value from multiple observables
+       Operator: mergeAll (FLATTENING)
+       merge a list of observable
+       mergeAll(1) will produce result same as concateAll, it will emit observable in a order
     */
 
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const weekend = ['Saturday', 'Sunday'];
+    const source1 = timer(0, 1).pipe(take(10));
 
-    of(of(...weekDays), of(...weekend))
-      .pipe(concatAll())
-      .subscribe(printDay => console.log(printDay));
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const source2 = of(...weekDays).pipe(delay(15));
+
+    const weekend = ['Saturday', 'Sunday'];
+    const source3 = of(...weekend).pipe(delay(5));
+
+    of(source1, source2, source3)
+      .pipe(mergeAll())
+      .subscribe(result => console.log(result));
 
    console.log("_____________________________________________");
 
