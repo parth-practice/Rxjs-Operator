@@ -144,3 +144,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
       Operator: mergeAll (FLATTENING)
        merge a list of observable
        mergeAll(1) will produce result same as concateAll, it will emit observable in a order
+
+    ** Grouping Observables **
+
+      Operator: groupBy
+       group the values into array of observables
+        for each value
+        call function with the value as parameter
+        the result is used as the group id
+        each group works as an observable

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { timer, of } from 'rxjs';
 
-import { take, delay, mergeAll } from 'rxjs/operators';
+import { take, delay, mergeAll, groupBy, mergeMap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +14,34 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     /*
-       Operator: mergeAll (FLATTENING)
-       merge a list of observable
-       mergeAll(1) will produce result same as concateAll, it will emit observable in a order
+       Operator: groupBy
+       group the values into array of observables
+        for each value
+        call function with the value as parameter
+        the result is used as the group id
+        each group works as an observable
     */
 
-    const source1 = timer(0, 1).pipe(take(10));
+    const posts = [
+      { id: 1, likes: 2, comments: 2 },
+      { id: 1, likes: 2, comments: 4 },
+      { id: 2, likes: 2, comments: 3 },
+      { id: 3, likes: 0, comments: 2 },
+      { id: 2, likes: 2, comments: 4 },
+      { id: 2, likes: 2, comments: 2 },
+      { id: 3, likes: 2, comments: 5 },
+      { id: 3, likes: 2, comments: 1 }
+    ];
 
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const source2 = of(...weekDays).pipe(delay(15));
+    const array = of(...posts).pipe(groupBy(post => post.id),
+                      mergeMap(group => group.pipe(toArray())));
+    
+    const out = [];
+    array.subscribe(a => out.push(a));
 
-    const weekend = ['Saturday', 'Sunday'];
-    const source3 = of(...weekend).pipe(delay(5));
-
-    of(source1, source2, source3)
-      .pipe(mergeAll())
-      .subscribe(result => console.log(result));
+    console.log(out[0]);
+    console.log(out[1]);
+    console.log(out[2]);
 
    console.log("_____________________________________________");
 
